@@ -24,7 +24,7 @@ func CastToAll(spell Spell, objects []interface{}) {
 
 func CastTo(spell Spell, object interface{}) {
 	switch v := object.(type) {
-	case *Player:
+	case CastReceiver:
 		v.ReceiveSpell(spell)
 	default:
 		val := reflect.ValueOf(object)
