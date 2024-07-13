@@ -30,11 +30,13 @@ func CastTo(spell Spell, object interface{}) {
 		val := reflect.ValueOf(object)
 		if val.Kind() == reflect.Ptr {
 			val = val.Elem()
-		}
-		for i := 0; i < val.NumField(); i++ {
-			if val.Type().Field(i).Name == spell.Char() {
-				field := val.FieldByName(spell.Char())
-				field.SetInt(field.Int() + int64(spell.Value()))
+			if val.Kind() == reflect.Struct {
+				for i := 0; i < val.NumField(); i++ {
+					if val.Type().Field(i).Name == spell.Char() {
+						field := val.FieldByName(spell.Char())
+						field.SetInt(field.Int() + int64(spell.Value()))
+					}
+				}
 			}
 		}
 	}
