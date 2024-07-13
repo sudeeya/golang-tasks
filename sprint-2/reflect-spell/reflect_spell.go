@@ -32,7 +32,7 @@ func CastTo(spell Spell, object interface{}) {
 			val = val.Elem()
 			if val.Kind() == reflect.Struct {
 				for i := 0; i < val.NumField(); i++ {
-					if val.Type().Field(i).Name == spell.Char() {
+					if val.Field(i).Kind() == reflect.Int && val.Type().Field(i).Name == spell.Char() {
 						field := val.FieldByName(spell.Char())
 						field.SetInt(field.Int() + int64(spell.Value()))
 					}
